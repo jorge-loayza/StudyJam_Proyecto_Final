@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Contáctame</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="inicio">Inicio</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="tarjetas">Tarjetas</string>
+
+</resources>
