@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.kokodev.contactame.Fragments.ContactosFragment;
+import com.kokodev.contactame.Fragments.TarjetasFragment;
 import com.kokodev.contactame.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,13 +22,15 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_inicio:
-                    mTextMessage.setText(R.string.inicio);
+                    ContactosFragment contactosFragment = new ContactosFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout,contactosFragment).commit();
                     return true;
                 case R.id.navigation_tarjetas:
-                    mTextMessage.setText(R.string.tarjetas);
+                    TarjetasFragment tarjetasFragment = new TarjetasFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout,tarjetasFragment).commit();
                     return true;
                 case R.id.navigation_ajustes:
-                    mTextMessage.setText(R.string.ajustes);
+
                     return true;
             }
             return false;
@@ -39,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp">
+
+            <ImageButton
+                android:id="@+id/ibImagenTarjeta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="#00ffffff"
+                android:src="@drawable/add_btn"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"/>
+
+            <EditText
+                android:id="@+id/etCargo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cargo"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/contorno_edit"
+                android:padding="10dp"/>
+            <EditText
+                android:id="@+id/etPaginaWeb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="PaginaWeb"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/contorno_edit"
+                android:padding="10dp"/>
+            <EditText
+                android:id="@+id/etDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Descripcion"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/contorno_edit"
+                android:padding="10dp"/>
+            <EditText
+                android:id="@+id/etDireccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dirección"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/contorno_edit"
+                android:padding="10dp"/>
+            <EditText
+                android:id="@+id/etLocalidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Localidad"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/contorno_edit"
+                android:padding="10dp"/>
+            <EditText
+                android:id="@+id/etOrganizacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Organización"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/contorno_edit"
+                android:padding="10dp"/>
+            <Switch
+                android:id="@+id/swPublico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Público:"
+                android:elegantTextHeight="true"
+                android:layout_marginTop="15dp"
+                android:textSize="@dimen/normal_text"/>
+            <Button
+                android:id="@+id/btnListo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:background="@color/colorPrimary"
+                android:text="Listo"
+                android:textColor="@color/colorText"
+                android:layout_marginTop="20dp"
+                android:textSize="@dimen/normal_text"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>
