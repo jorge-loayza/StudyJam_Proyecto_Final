@@ -207,6 +207,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
                     }else{
                         progressDialog.dismiss();
+                        finish();
                         Intent mainIntent = new Intent(getApplicationContext(),CrearPerfilActivity.class);
                         mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(mainIntent);
