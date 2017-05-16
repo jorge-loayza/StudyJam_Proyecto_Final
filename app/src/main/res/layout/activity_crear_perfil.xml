@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/ibImagenPerfil"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_user" />
+
+        <EditText
+            android:id="@+id/etNombres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ibImagenPerfil"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:inputType="textPersonName"
+            android:hint="Nombre"
+            android:background="@drawable/contorno_edit"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+        <EditText
+            android:id="@+id/etApellidos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etNombres"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:inputType="textPersonName"
+            android:hint="Nombre"
+            android:background="@drawable/contorno_edit"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+        <EditText
+            android:id="@+id/etAlias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etApellidos"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:inputType="textPersonName"
+            android:hint="Nombre"
+            android:background="@drawable/contorno_edit"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+        <EditText
+            android:id="@+id/etCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etAlias"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:inputType="textPersonName"
+            android:hint="Nombre"
+            android:background="@drawable/contorno_edit"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+        <EditText
+            android:id="@+id/etTelefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etCorreo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:inputType="textPersonName"
+            android:hint="Nombre"
+            android:background="@drawable/contorno_edit"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+
+        <Button
+            android:id="@+id/btnCrearPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crear Perfil"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorText"
+            android:textStyle="bold"
+            android:layout_marginBottom="25dp"/>
+    </LinearLayout>
+
+</ScrollView>

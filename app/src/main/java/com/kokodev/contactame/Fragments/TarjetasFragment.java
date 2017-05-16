@@ -48,6 +48,7 @@ public class TarjetasFragment extends Fragment {
         this.view = view;
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("tarjetas");
+        databaseReference.keepSynced(true);
         rvTarjetas = (RecyclerView) view.findViewById(R.id.rvListaTarjetas);
         rvTarjetas.setLayoutManager(new LinearLayoutManager(getContext()));
         listaTarjetas = new ArrayList<>();
