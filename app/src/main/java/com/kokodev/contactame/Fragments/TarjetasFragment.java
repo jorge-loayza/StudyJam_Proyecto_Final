@@ -52,6 +52,7 @@ public class TarjetasFragment extends Fragment {
         rvTarjetas = (RecyclerView) view.findViewById(R.id.rvListaTarjetas);
         rvTarjetas.setLayoutManager(new LinearLayoutManager(getContext()));
         listaTarjetas = new ArrayList<>();
+        tarjetasAdapter = new TarjetasAdapter(listaTarjetas,getContext());
        // init();
         //cargarTarjetas();
         return view;
@@ -63,17 +64,21 @@ public class TarjetasFragment extends Fragment {
         this.view = view;
     }
 
-    private void cargarTarjetas() {
 
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseDatabase.getReference("tarjetas").addValueEventListener(new ValueEventListener() {
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listaTarjetas.removeAll(listaTarjetas);
-                for (DataSnapshot snapshot :
-                        dataSnapshot.getChildren()) {
-                    Tarjeta tarjeta = snapshot.getValue(Tarjeta.class);
-                    listaTarjetas.add(tarjeta);
+                for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
+
+                    Tarjeta tar = snapshot.getValue(Tarjeta.class);
+                    listaTarjetas.add(tar);
                 }
                 tarjetasAdapter.notifyDataSetChanged();
             }
@@ -84,33 +89,9 @@ public class TarjetasFragment extends Fragment {
             }
         });
 
-    }
-
-    private void init() {
-        rvTarjetas = (RecyclerView) view.findViewById(R.id.rvListaTarjetas);
-        rvTarjetas.setLayoutManager(new LinearLayoutManager(getContext()));
-        listaTarjetas = new ArrayList<>();
-        tarjetasAdapter = new TarjetasAdapter(listaTarjetas);
         rvTarjetas.setAdapter(tarjetasAdapter);
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseRecyclerAdapter<Tarjeta,TarjetasAdapter.TarjetasViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Tarjeta, TarjetasAdapter.TarjetasViewHolder>(
-                Tarjeta.class,
-                R.layout.tarjeta_row,
-                TarjetasAdapter.TarjetasViewHolder.class,
-                databaseReference
-        ) {
-            @Override
-            protected void populateViewHolder(TarjetasAdapter.TarjetasViewHolder viewHolder, Tarjeta model, int position) {
-                viewHolder.setCargo(model.getCargo());
-                viewHolder.setImage(getContext(),model.getImagenTarjeta());
-            }
-        };
 
-        rvTarjetas.setAdapter(firebaseRecyclerAdapter);
     }
 
 }

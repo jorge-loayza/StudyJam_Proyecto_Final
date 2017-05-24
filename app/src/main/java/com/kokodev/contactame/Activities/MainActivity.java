@@ -32,17 +32,17 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_inicio:
-                    getSupportActionBar().setTitle("Contactos");
+                    getSupportActionBar().setTitle(R.string.contactos);
                     ContactosFragment contactosFragment = new ContactosFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout,contactosFragment).commit();
                     return true;
                 case R.id.navigation_tarjetas:
-                    getSupportActionBar().setTitle("Tarjetas de Contacto");
+                    getSupportActionBar().setTitle(R.string.tarjetas_de_contactos);
                     TarjetasFragment tarjetasFragment = new TarjetasFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout,tarjetasFragment).commit();
                     return true;
                 case R.id.navigation_ajustes:
-                    getSupportActionBar().setTitle("Ajustes");
+                    getSupportActionBar().setTitle(R.string.ajustes);
                     AjustesFragment ajustesFragment = new AjustesFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout,ajustesFragment).commit();
                     return true;
@@ -71,18 +71,22 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(loginIntent);
                     finish();
 
+                }else {
+                    ContactosFragment contactosFragment = new ContactosFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout,contactosFragment).commit();
+
                 }
             }
         };
 
 
-
         databaseReferenceUsuarios = FirebaseDatabase.getInstance().getReference().child("usuarios");
-        //databaseReferenceUsuarios.keepSynced(true);
+        databaseReferenceUsuarios.keepSynced(true);
 
         verificaExisteUsuario();
 
 
+        getSupportActionBar().setTitle(R.string.contactos);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

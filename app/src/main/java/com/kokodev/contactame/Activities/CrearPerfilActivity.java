@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,18 +16,22 @@ import android.widget.Toast;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.kokodev.contactame.Objetos.Contacto;
 import com.kokodev.contactame.R;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.util.regex.Pattern;
+
 public class CrearPerfilActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private EditText etNombre;
+    private EditText etNombre,etApellidos,etTelefono;
     private ImageButton ibImagenPerfil;
     private Button btnCrearPerfil;
 
@@ -47,18 +52,14 @@ public class CrearPerfilActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_perfil);
         getSupportActionBar().setTitle("Crear perfil");
-        if (getIntent().getExtras() != null){
-            GoogleSignInAccount c = (GoogleSignInAccount) getIntent().getExtras().getSerializable("cuenta");
-            Toast.makeText(getApplicationContext(),c.getDisplayName(),Toast.LENGTH_LONG).show();
-        }
-
-
-
+        
         databaseReferenceUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios");
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference().child("Imagenes_Usuarios");
 
         etNombre = (EditText) findViewById(R.id.etNombres);
+        etApellidos = (EditText) findViewById(R.id.etApellidos);
+        etTelefono = (EditText) findViewById(R.id.etTelefono);
         ibImagenPerfil = (ImageButton) findViewById(R.id.ibImagenPerfil);
         btnCrearPerfil = (Button) findViewById(R.id.btnCrearPerfil);
 
@@ -86,34 +87,67 @@ public class CrearPerfilActivity extends AppCompatActivity implements View.OnCli
 
     private void iniciarRegistro() {
         final String nombre = etNombre.getText().toString().trim();
+        final String apellidos = etApellidos.getText().toString().trim();
+        final String telefono = etTelefono.getText().toString().trim();
+
+        final FirebaseUser usuario = firebaseAuth.getCurrentUser();
+
         final String usuarioID =firebaseAuth.getCurrentUser().getUid();
-        if (!TextUtils.isEmpty(nombre) && imagenUri != null){
 
-            progressDialog.setMessage("Creando Perfil...");
-            progressDialog.show();
-            databaseReferenceUsuario.child(usuarioID);
-
-            StorageReference ruta = storageReference.child(usuarioID);
-            ruta.putFile(imagenUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                    String downloadUrl = taskSnapshot.getDownloadUrl().toString();
-
-                    databaseReferenceUsuario.child(usuarioID).child("nombres").setValue(nombre);
-                    databaseReferenceUsuario.child(usuarioID).child("imagen_usuario").setValue(downloadUrl);
-
-                    progressDialog.dismiss();
-
-                    Intent mainIntent = new Intent(getApplicationContext(),MainActivity.class);
-                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    finish();
-                    startActivity(mainIntent);
-                }
-            });
+        if (!TextUtils.isEmpty(nombre) &&!TextUtils.isEmpty(apellidos)&&!TextUtils.isEmpty(telefono)&& imagenUri != null){
+            if (validarNombre(nombre) && validarTelefono(telefono) && validarNombre(apellidos)){
+                progressDialog.setMessage("Creando Perfil...");
+                progressDialog.show();
 
 
+                StorageReference ruta = storageReference.child(usuarioID);
+                ruta.putFile(imagenUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        String downloadUrl = taskSnapshot.getDownloadUrl().toString();
+
+                        databaseReferenceUsuario.child(usuarioID).child("nombres").setValue(nombre);
+                        databaseReferenceUsuario.child(usuarioID).child("apellidos").setValue(apellidos);
+                        databaseReferenceUsuario.child(usuarioID).child("correo_electronico").setValue(usuario.getEmail());
+                        databaseReferenceUsuario.child(usuarioID).child("telefono").setValue(telefono);
+                        databaseReferenceUsuario.child(usuarioID).child("imagen_usuario").setValue(downloadUrl);
+
+                        progressDialog.dismiss();
+
+                        Intent mainIntent = new Intent(getApplicationContext(),MainActivity.class);
+                        mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        finish();
+                        startActivity(mainIntent);
+                    }
+                });
+            }
+        }else{
+            Toast.makeText(getApplicationContext(), R.string.debe_lenar_todos_los_campos,Toast.LENGTH_LONG).show();
         }
+    }
+
+    private boolean validarTelefono(String telefono) {
+        if (!Patterns.PHONE.matcher(telefono).matches()|| telefono.length()<7) {
+            etTelefono.setError(getString(R.string.telefono_inválido));
+            return false;
+        } else {
+            etTelefono.setError(null);
+        }
+
+        return true;
+    }
+
+    private boolean validarNombre(String nombre) {
+        Pattern patron = Pattern.compile("^[a-zA-Z ]+$");
+        if (!patron.matcher(nombre).matches() || nombre.length() > 30) {
+            etNombre.setError(getString(R.string.nombre_inválido));
+            return false;
+        } else {
+            etNombre.setError(null);
+        }
+
+        return true;
     }
 
     @Override

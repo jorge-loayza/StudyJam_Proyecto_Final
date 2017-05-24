@@ -11,6 +11,7 @@
         android:layout_centerInParent="true"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp">
+
         <EditText
             android:id="@+id/etCorreo"
             android:layout_width="match_parent"
@@ -19,6 +20,7 @@
             android:padding="10dp"
             android:background="@drawable/contorno_edit"
             android:inputType="textEmailAddress"/>
+
         <EditText
             android:id="@+id/etContrasena"
             android:layout_width="match_parent"

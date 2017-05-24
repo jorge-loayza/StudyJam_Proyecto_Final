@@ -24,9 +24,11 @@ import java.util.List;
 public class TarjetasAdapter extends RecyclerView.Adapter<TarjetasAdapter.TarjetasViewHolder>{
 
     List<Tarjeta> tarjetas;
+    Context ctx;
 
-    public TarjetasAdapter(List<Tarjeta> tarjetas) {
+    public TarjetasAdapter(List<Tarjeta> tarjetas,Context context) {
         this.tarjetas = tarjetas;
+        this.ctx = context;
     }
 
     @Override
@@ -41,6 +43,7 @@ public class TarjetasAdapter extends RecyclerView.Adapter<TarjetasAdapter.Tarjet
 
         Tarjeta tarjeta = tarjetas.get(position);
         holder.tvCargo.setText(tarjeta.getCargo());
+        holder.setImage(ctx,tarjeta.getImagenTarjeta());
 
     }
 
@@ -52,34 +55,35 @@ public class TarjetasAdapter extends RecyclerView.Adapter<TarjetasAdapter.Tarjet
     public static class TarjetasViewHolder extends RecyclerView.ViewHolder{
 
         TextView tvCargo;
+        ImageView ivImagenTarjeta;
         View mView;
 
         public TarjetasViewHolder(View itemView) {
             super(itemView);
 
-            //tvCargo = (TextView) itemView.findViewById(R.id.tvCargoTarjeta);
-            //tvPublico = (TextView) itemView.findViewById(R.id.tvPublicoTarjeta);
+            tvCargo = (TextView) itemView.findViewById(R.id.tvCargoTarjeta);
+            ivImagenTarjeta = (ImageView) itemView.findViewById(R.id.ivImagenTarjeta);
             mView = itemView;
         }
 
         public void setCargo(String cargo){
-            TextView tvCargo = (TextView) mView.findViewById(R.id.tvCargoTarjeta);
+            //TextView tvCargo = (TextView) mView.findViewById(R.id.tvCargoTarjeta);
             tvCargo.setText(cargo);
         }
 
         public void setImage(final Context ctx, final String image){
-            final ImageView tarjetsImagen = (ImageView) mView.findViewById(R.id.ivImagenTarjeta);
+            //final ImageView tarjetsImagen = (ImageView) mView.findViewById(R.id.ivImagenTarjeta);
 
             //Picasso.with(ctx).load(image).into(tarjetsImagen);
 
-            Picasso.with(ctx).load(image).networkPolicy(NetworkPolicy.OFFLINE).into(tarjetsImagen, new Callback() {
+            Picasso.with(ctx).load(image).networkPolicy(NetworkPolicy.OFFLINE).into(ivImagenTarjeta, new Callback() {
                 @Override
                 public void onSuccess() {
                 }
 
                 @Override
                 public void onError() {
-                    Picasso.with(ctx).load(image).into(tarjetsImagen);
+                    Picasso.with(ctx).load(image).into(ivImagenTarjeta);
                 }
             });
 

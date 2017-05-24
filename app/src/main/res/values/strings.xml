@@ -8,6 +8,18 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="regitro_de_usuario">Registro de Usuario</string>
+    <string name="debe_lenar_ambos_campos">Debe llenar ambos campos...</string>
+    <string name="necesitas_crear_una_cuenta">Necesitas crear una cuenta...</string>
+    <string name="creando_cuenta">Creando cuenta...</string>
+    <string name="fallo_en_la_autenticacion">Fallo en la Autenticación.</string>
+    <string name="contraseña_corta">La contraseña debe tener al menos 8 caracteres.</string>
+    <string name="correo_invalido">Correo electrónico inválido.</string>
+    <string name="debe_lenar_todos_los_campos">Debe llenar todo los campos.</string>
+    <string name="telefono_inválido">Teléfono inválido</string>
+    <string name="nombre_inválido">Nombre inválido</string>
+    <string name="contactos">Contactos</string>
+    <string name="tarjetas_de_contactos">Tarjetas de Contacto</string>
 
 
 </resources>
