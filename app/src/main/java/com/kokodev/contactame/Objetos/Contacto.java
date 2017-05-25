@@ -5,9 +5,18 @@ package com.kokodev.contactame.Objetos;
  */
 
 public class Contacto {
-    String nombres,apellidos,correo_electronico,telefono,imagen_usuario;
+    String nombres,apellidos,correo_electronico,telefono,imagen_usuario,id_tarjeta;
 
     public Contacto() {
+    }
+
+    public Contacto(String nombres, String apellidos, String correo_electronico, String telefono, String imagen_usuario, String id_tarjeta) {
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.correo_electronico = correo_electronico;
+        this.telefono = telefono;
+        this.imagen_usuario = imagen_usuario;
+        this.id_tarjeta = id_tarjeta;
     }
 
     public Contacto(String nombres, String apellidos, String correo_electronico, String telefono, String imagen_usuario) {

@@ -20,6 +20,11 @@
     <string name="nombre_inválido">Nombre inválido</string>
     <string name="contactos">Contactos</string>
     <string name="tarjetas_de_contactos">Tarjetas de Contacto</string>
+    <string name="salir">Salir</string>
+    <string name="mensaje_salida">¿Esta seguro que quiere salir?</string>
+    <string name="descripcion_aplicacion">Aplicación para mantener todos los contactos sincronizados.\nTambién se puede buscar tarjetas de presenación.</string>
+    <string name="buscar">Buscar</string>
+    <string name="buscar_tarjetas">Buscar Tarjetas</string>
 
 
 </resources>

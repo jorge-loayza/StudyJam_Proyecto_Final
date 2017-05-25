@@ -6,14 +6,15 @@ package com.kokodev.contactame.Objetos;
 
 public class Tarjeta {
 
-    private String cargo,descripcion,direccion,localidad,organizacion,telefono,imagenTarjeta;
+    private String cargo,pagina,descripcion,direccion,localidad,organizacion,telefono,imagenTarjeta;
     private Boolean publico;
 
     public Tarjeta() {
     }
 
-    public Tarjeta(String cargo, String descripcion, String direccion, String localidad, String organizacion, String telefono, String imagenTarjeta, Boolean publico) {
+    public Tarjeta(String cargo, String pagina, String descripcion, String direccion, String localidad, String organizacion, String telefono, String imagenTarjeta, Boolean publico) {
         this.cargo = cargo;
+        this.pagina = pagina;
         this.descripcion = descripcion;
         this.direccion = direccion;
         this.localidad = localidad;
@@ -29,6 +30,14 @@ public class Tarjeta {
 
     public void setCargo(String cargo) {
         this.cargo = cargo;
+    }
+
+    public String getPagina() {
+        return pagina;
+    }
+
+    public void setPagina(String pagina) {
+        this.pagina = pagina;
     }
 
     public String getDescripcion() {

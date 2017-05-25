@@ -1,11 +1,16 @@
 package com.kokodev.contactame.Activities;
 
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,27 +28,29 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
 
+    private Fragment contactosFragment,tarjetasFragment,ajustesFragment;
+
     private DatabaseReference databaseReferenceUsuarios;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_inicio:
                     getSupportActionBar().setTitle(R.string.contactos);
-                    ContactosFragment contactosFragment = new ContactosFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout,contactosFragment).commit();
                     return true;
                 case R.id.navigation_tarjetas:
                     getSupportActionBar().setTitle(R.string.tarjetas_de_contactos);
-                    TarjetasFragment tarjetasFragment = new TarjetasFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout,tarjetasFragment).commit();
+                    return true;
+                case R.id.navigation_buscar:
+                    getSupportActionBar().setTitle(R.string.buscar_tarjetas);
                     return true;
                 case R.id.navigation_ajustes:
                     getSupportActionBar().setTitle(R.string.ajustes);
-                    AjustesFragment ajustesFragment = new AjustesFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout,ajustesFragment).commit();
                     return true;
             }
@@ -59,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        contactosFragment = new ContactosFragment();
+        tarjetasFragment = new TarjetasFragment();
+        ajustesFragment = new AjustesFragment();
+
 
         //Firebase
         firebaseAuth = FirebaseAuth.getInstance();

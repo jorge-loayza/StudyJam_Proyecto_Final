@@ -12,10 +12,13 @@
         android:title="@string/tarjetas"/>
 
     <item
+    android:id="@+id/navigation_buscar"
+    android:icon="@drawable/ic_search_black"
+    android:title="@string/buscar"/>
+
+    <item
         android:id="@+id/navigation_ajustes"
         android:icon="@drawable/ic_settings_black"
         android:title="@string/ajustes" />
-
-
 
 </menu>

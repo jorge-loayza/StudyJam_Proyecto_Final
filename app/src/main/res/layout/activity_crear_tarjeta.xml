@@ -16,11 +16,12 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="15dp">
 
-            <ImageView
-                android:id="@+id/ivImagenTarjeta"
+            <ImageButton
+                android:id="@+id/ibImagenTarjeta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:background="#00ffffff"
                 android:src="@drawable/add_btn"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"/>
@@ -73,6 +74,14 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/contorno_edit"
                 android:padding="10dp"/>
+            <EditText
+                android:id="@+id/etTelefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Teléfono  "
+                android:layout_marginTop="15dp"
+                android:background="@drawable/contorno_edit"
+                android:padding="10dp"/>
             <Switch
                 android:id="@+id/swPublico"
                 android:layout_width="wrap_content"
@@ -82,12 +91,12 @@
                 android:layout_marginTop="15dp"
                 android:textSize="@dimen/normal_text"/>
             <Button
-                android:id="@+id/btnEditar"
+                android:id="@+id/btnCrearTarjeta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
                 android:background="@color/colorPrimary"
-                android:text="Editar Tarjeta"
+                android:text="Crear Tarjeta"
                 android:textColor="@color/colorText"
                 android:layout_marginTop="20dp"
                 android:textSize="@dimen/normal_text"/>

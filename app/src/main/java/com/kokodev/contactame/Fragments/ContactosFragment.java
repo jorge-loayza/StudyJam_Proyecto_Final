@@ -151,11 +151,7 @@ public class ContactosFragment extends Fragment {
     public void onStart() {
         super.onStart();
         progressDialog.setMessage("Espere...");
-        progressDialog.show();
         llenarContactos();
-        progressDialog.dismiss();
-
-
     }
 
     private void llenarContactos() {
@@ -164,14 +160,14 @@ public class ContactosFragment extends Fragment {
         contactos.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.i("key",dataSnapshot.getKey());
+                //Log.i("key",dataSnapshot.getKey());
                 DatabaseReference usuariosref = databaseReference.child("usuarios/"+dataSnapshot.getKey());
                 usuariosref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Contacto con = dataSnapshot.getValue(Contacto.class);
                         listaContactos.add(con);
-                        Log.i("size",listaContactos.size()+"");
+                        //Log.i("size",listaContactos.size()+"");
                         contactosAdapter.notifyDataSetChanged();
                     }
 
