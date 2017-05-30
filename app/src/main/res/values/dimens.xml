@@ -3,11 +3,12 @@
     <dimen name="small_button">32dp</dimen>
     <dimen name="normal_button">48dp</dimen>
     <dimen name="large_button">64dp</dimen>
-    <dimen name="small_text">15sp</dimen>
-    <dimen name="normal_text">20sp</dimen>
-    <dimen name="large_text">30sp</dimen>
+    <dimen name="small_text">10sp</dimen>
+    <dimen name="normal_text">15sp</dimen>
+    <dimen name="large_text">25sp</dimen>
     <dimen name="padding_text">10dp</dimen>
     <dimen name="padding_image">5dp</dimen>
+    <dimen name="margin_cardView">10dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>

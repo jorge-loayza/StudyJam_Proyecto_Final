@@ -23,7 +23,6 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        getSupportActionBar().hide();
 
         imageView = (ImageView) findViewById(R.id.ivLogo);
         animation = loadAnimation(getApplicationContext(),R.anim.blink);

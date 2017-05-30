@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        getSupportActionBar().setTitle(R.string.regitro_de_usuario);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         authStateListener = new FirebaseAuth.AuthStateListener() {
@@ -52,7 +52,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         };
 
 
-        getSupportActionBar().setTitle("Registro de Usuario");
 
         etCorreo = (EditText) findViewById(R.id.etCorreo);
         etContrasena = (EditText) findViewById(R.id.etContrasena);

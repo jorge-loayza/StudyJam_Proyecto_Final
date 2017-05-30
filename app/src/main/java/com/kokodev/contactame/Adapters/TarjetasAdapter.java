@@ -1,13 +1,20 @@
 package com.kokodev.contactame.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.kokodev.contactame.Activities.TarjetaActivity;
 import com.kokodev.contactame.Fragments.TarjetasFragment;
 import com.kokodev.contactame.Objetos.Tarjeta;
 import com.kokodev.contactame.R;
@@ -34,7 +41,7 @@ public class TarjetasAdapter extends RecyclerView.Adapter<TarjetasAdapter.Tarjet
     @Override
     public TarjetasViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tarjeta_row,parent,false);
-        TarjetasViewHolder tarjetasViewHolder = new TarjetasViewHolder(view);
+        TarjetasViewHolder tarjetasViewHolder = new TarjetasViewHolder(view,ctx);
         return tarjetasViewHolder;
     }
 
@@ -42,6 +49,8 @@ public class TarjetasAdapter extends RecyclerView.Adapter<TarjetasAdapter.Tarjet
     public void onBindViewHolder(TarjetasViewHolder holder, int position) {
 
         Tarjeta tarjeta = tarjetas.get(position);
+        holder.setTarjeta(tarjeta);
+        holder.tvOrganizacion.setText(tarjeta.getOrganizacion());
         holder.tvCargo.setText(tarjeta.getCargo());
         holder.setImage(ctx,tarjeta.getImagenTarjeta());
 
@@ -52,23 +61,60 @@ public class TarjetasAdapter extends RecyclerView.Adapter<TarjetasAdapter.Tarjet
         return tarjetas.size();
     }
 
+
+
+
+
+
     public static class TarjetasViewHolder extends RecyclerView.ViewHolder{
 
+        TextView tvOrganizacion;
         TextView tvCargo;
-        ImageView ivImagenTarjeta;
+        ImageView ivImagenTarjeta,ivBorrarTarjeta;
+        private Tarjeta tarjeta;
         View mView;
+        Context ctx;
 
-        public TarjetasViewHolder(View itemView) {
+
+        public TarjetasViewHolder(View itemView, Context context) {
             super(itemView);
-
+            tvOrganizacion = (TextView) itemView.findViewById(R.id.tvOrganizacionTarjeta);
             tvCargo = (TextView) itemView.findViewById(R.id.tvCargoTarjeta);
             ivImagenTarjeta = (ImageView) itemView.findViewById(R.id.ivImagenTarjeta);
+            ivBorrarTarjeta = (ImageView) itemView.findViewById(R.id.ivBorrarTarjeta);
             mView = itemView;
+            this.ctx = context;
+            mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mView.getContext(), TarjetaActivity.class);
+                    intent.putExtra("tarjeta",tarjeta);
+                    intent.putExtra("vista",true);
+                    mView.getContext().startActivity(intent);
+                }
+            });
+            ivBorrarTarjeta.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("tarjetas_usuario").child(usuario.getUid());
+                    databaseReference.child(tarjeta.getId_tarjeta()).removeValue();
+                    Toast.makeText(ctx, R.string.se_elimino_tarjeta,Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        public void setTarjeta(Tarjeta tarjeta) {
+            this.tarjeta = tarjeta;
         }
 
         public void setCargo(String cargo){
             //TextView tvCargo = (TextView) mView.findViewById(R.id.tvCargoTarjeta);
             tvCargo.setText(cargo);
+        }
+        public void setOrganizacion(String organizacion){
+            //TextView tvCargo = (TextView) mView.findViewById(R.id.tvCargoTarjeta);
+            tvOrganizacion.setText(organizacion);
         }
 
         public void setImage(final Context ctx, final String image){

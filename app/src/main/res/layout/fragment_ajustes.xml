@@ -11,7 +11,8 @@
         <LinearLayout
             android:id="@+id/llEditarPerfil"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:background="?android:attr/selectableItemBackground">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -34,7 +35,8 @@
         <LinearLayout
             android:id="@+id/llMiTarjeta"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:background="?android:attr/selectableItemBackground">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,8 +60,9 @@
         <LinearLayout
             android:id="@+id/llAcerca"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal">
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="?android:attr/selectableItemBackground">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,7 +85,8 @@
         <LinearLayout
             android:id="@+id/llSalir"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:background="?android:attr/selectableItemBackground">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

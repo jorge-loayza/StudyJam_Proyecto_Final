@@ -51,7 +51,7 @@ public class CrearPerfilActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_perfil);
-        getSupportActionBar().setTitle("Crear perfil");
+
         
         databaseReferenceUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios");
         firebaseAuth = FirebaseAuth.getInstance();
@@ -94,33 +94,48 @@ public class CrearPerfilActivity extends AppCompatActivity implements View.OnCli
 
         final String usuarioID =firebaseAuth.getCurrentUser().getUid();
 
-        if (!TextUtils.isEmpty(nombre) &&!TextUtils.isEmpty(apellidos)&&!TextUtils.isEmpty(telefono)&& imagenUri != null){
-            if (validarNombre(nombre) && validarTelefono(telefono) && validarNombre(apellidos)){
+        if (!TextUtils.isEmpty(nombre) && !TextUtils.isEmpty(apellidos) && !TextUtils.isEmpty(telefono)){
+            if (validar(nombre,1) && validar(apellidos,2) && validarTelefono(telefono)){
                 progressDialog.setMessage("Creando Perfil...");
                 progressDialog.show();
+                if (imagenUri == null){
+                    databaseReferenceUsuario.child(usuarioID).child("idContacto").setValue(usuarioID);
+                    databaseReferenceUsuario.child(usuarioID).child("nombres").setValue(nombre);
+                    databaseReferenceUsuario.child(usuarioID).child("apellidos").setValue(apellidos);
+                    databaseReferenceUsuario.child(usuarioID).child("correo_electronico").setValue(usuario.getEmail());
+                    databaseReferenceUsuario.child(usuarioID).child("telefono").setValue(telefono);
+                    databaseReferenceUsuario.child(usuarioID).child("imagen_usuario").setValue(null);
+                    progressDialog.dismiss();
+
+                    Intent mainIntent = new Intent(getApplicationContext(),MainActivity.class);
+                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    finish();
+                    startActivity(mainIntent);
+                }else {
+                    StorageReference ruta = storageReference.child(usuarioID);
+                    ruta.putFile(imagenUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            String downloadUrl = taskSnapshot.getDownloadUrl().toString();
+                            databaseReferenceUsuario.child(usuarioID).child("idContacto").setValue(usuarioID);
+                            databaseReferenceUsuario.child(usuarioID).child("nombres").setValue(nombre);
+                            databaseReferenceUsuario.child(usuarioID).child("apellidos").setValue(apellidos);
+                            databaseReferenceUsuario.child(usuarioID).child("correo_electronico").setValue(usuario.getEmail());
+                            databaseReferenceUsuario.child(usuarioID).child("telefono").setValue(telefono);
+                            databaseReferenceUsuario.child(usuarioID).child("imagen_usuario").setValue(downloadUrl);
+
+                            progressDialog.dismiss();
+
+                            Intent mainIntent = new Intent(getApplicationContext(),MainActivity.class);
+                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            finish();
+                            startActivity(mainIntent);
+                        }
+                    });
+                }
 
 
-                StorageReference ruta = storageReference.child(usuarioID);
-                ruta.putFile(imagenUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                        String downloadUrl = taskSnapshot.getDownloadUrl().toString();
-
-                        databaseReferenceUsuario.child(usuarioID).child("nombres").setValue(nombre);
-                        databaseReferenceUsuario.child(usuarioID).child("apellidos").setValue(apellidos);
-                        databaseReferenceUsuario.child(usuarioID).child("correo_electronico").setValue(usuario.getEmail());
-                        databaseReferenceUsuario.child(usuarioID).child("telefono").setValue(telefono);
-                        databaseReferenceUsuario.child(usuarioID).child("imagen_usuario").setValue(downloadUrl);
-
-                        progressDialog.dismiss();
-
-                        Intent mainIntent = new Intent(getApplicationContext(),MainActivity.class);
-                        mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        finish();
-                        startActivity(mainIntent);
-                    }
-                });
             }
         }else{
             Toast.makeText(getApplicationContext(), R.string.debe_lenar_todos_los_campos,Toast.LENGTH_LONG).show();
@@ -138,10 +153,17 @@ public class CrearPerfilActivity extends AppCompatActivity implements View.OnCli
         return true;
     }
 
-    private boolean validarNombre(String nombre) {
+    private boolean validar(String cadena,int x) {
+
         Pattern patron = Pattern.compile("^[a-zA-Z ]+$");
-        if (!patron.matcher(nombre).matches() || nombre.length() > 30) {
-            etNombre.setError(getString(R.string.nombre_inválido));
+        if (!patron.matcher(cadena).matches() || cadena.length() > 20) {
+            if (x==1){
+                etNombre.setError(getString(R.string.nombre_invalido));
+            }
+            if (x==2){
+                etApellidos.setError(getString(R.string.apellido_invalido));
+            }
+
             return false;
         } else {
             etNombre.setError(null);

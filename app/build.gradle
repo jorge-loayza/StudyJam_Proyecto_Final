@@ -42,8 +42,12 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.4.+'
+    compile 'com.journeyapps:zxing-android-embedded:3.5.0'
     testCompile 'junit:junit:4.12'
 }
+
+
+
 
 
 

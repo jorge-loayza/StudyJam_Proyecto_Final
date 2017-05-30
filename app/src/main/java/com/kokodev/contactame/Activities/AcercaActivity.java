@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -11,7 +12,7 @@ import com.kokodev.contactame.R;
 
 public class AcercaActivity extends AppCompatActivity implements View.OnClickListener{
     private ImageView ivTwiter,ivGitHub;
-    private Intent intent;
+    private Intent intent,intent2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +21,7 @@ public class AcercaActivity extends AppCompatActivity implements View.OnClickLis
         ivTwiter = (ImageView) findViewById(R.id.ivTwitter);
         ivGitHub = (ImageView) findViewById(R.id.ivGithub);
         ivTwiter.setOnClickListener(this);
+        ivGitHub.setOnClickListener(this);
     }
 
 
@@ -32,9 +34,10 @@ public class AcercaActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.ivGithub:
-                intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("https://github.com/kokoDev05"));
-                startActivity(intent);
+                Log.i("click","si");
+                intent2 = new Intent(Intent.ACTION_VIEW);
+                intent2.setData(Uri.parse("https://github.com/kokoDev05"));
+                startActivity(intent2);
                 break;
         }
     }

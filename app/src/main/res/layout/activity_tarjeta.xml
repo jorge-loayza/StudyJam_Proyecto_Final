@@ -6,92 +6,165 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="15dp">
-
+            android:paddingBottom="10dp">
             <ImageView
                 android:id="@+id/ivImagenTarjeta"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="160dp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/add_btn"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
 
-            <EditText
-                android:id="@+id/etCargo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Cargo"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/contorno_edit"
-                android:padding="10dp"/>
-            <EditText
-                android:id="@+id/etPaginaWeb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="PaginaWeb"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/contorno_edit"
-                android:padding="10dp"/>
-            <EditText
-                android:id="@+id/etDescripcion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Descripcion"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/contorno_edit"
-                android:padding="10dp"/>
-            <EditText
-                android:id="@+id/etDireccion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Dirección"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/contorno_edit"
-                android:padding="10dp"/>
-            <EditText
-                android:id="@+id/etLocalidad"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Localidad"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/contorno_edit"
-                android:padding="10dp"/>
-            <EditText
-                android:id="@+id/etOrganizacion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Organización"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/contorno_edit"
-                android:padding="10dp"/>
-            <Switch
-                android:id="@+id/swPublico"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Público:"
-                android:elegantTextHeight="true"
-                android:layout_marginTop="15dp"
-                android:textSize="@dimen/normal_text"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:text="Cargo:"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/normal_text"
+                        android:textStyle="bold"
+                        android:paddingRight="10dp"/>
+                    <TextView
+                        android:id="@+id/tvCargo"
+                        android:text="Cargo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/normal_text"
+                        android:layout_marginTop="5dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:text="Página Web:"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
+                        android:textSize="@dimen/normal_text"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/tvPaginaweb"
+                        android:text="pagina"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/normal_text"
+                        android:layout_marginTop="5dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:text="Descripcón:"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
+                        android:textSize="@dimen/normal_text"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/tvDescripcion"
+                        android:text="decripcion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="@dimen/normal_text"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:text="Dirección:"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
+                        android:textSize="@dimen/normal_text"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/tvDireccion"
+                        android:text="direccion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/normal_text"
+                        android:layout_marginTop="5dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:text="Localidad:"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
+                        android:textSize="@dimen/normal_text"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/tvLocalidad"
+                        android:text="localdad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/normal_text"
+                        android:layout_marginTop="5dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:text="Organización:"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
+                        android:textSize="@dimen/normal_text"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/tvOrganizacion"
+                        android:text="organizacion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/normal_text"
+                        android:layout_marginTop="5dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
             <Button
-                android:id="@+id/btnEditar"
+                android:id="@+id/btnEditarTarjeta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
                 android:background="@color/colorPrimary"
                 android:text="Editar Tarjeta"
                 android:textColor="@color/colorText"
-                android:layout_marginTop="20dp"
-                android:textSize="@dimen/normal_text"/>
-
+                android:layout_marginTop="20dp" />
         </LinearLayout>
 
     </ScrollView>

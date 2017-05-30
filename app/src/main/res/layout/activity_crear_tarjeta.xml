@@ -33,7 +33,8 @@
                 android:hint="Cargo"
                 android:layout_marginTop="25dp"
                 android:background="@drawable/contorno_edit"
-                android:padding="10dp"/>
+                android:padding="10dp"
+                android:inputType="textCapWords"/>
             <EditText
                 android:id="@+id/etPaginaWeb"
                 android:layout_width="match_parent"
@@ -41,7 +42,8 @@
                 android:hint="PaginaWeb"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/contorno_edit"
-                android:padding="10dp"/>
+                android:padding="10dp"
+                android:inputType="textWebEditText"/>
             <EditText
                 android:id="@+id/etDescripcion"
                 android:layout_width="match_parent"
@@ -49,7 +51,8 @@
                 android:hint="Descripcion"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/contorno_edit"
-                android:padding="10dp"/>
+                android:padding="10dp"
+                android:inputType="textCapWords"/>
             <EditText
                 android:id="@+id/etDireccion"
                 android:layout_width="match_parent"
@@ -57,7 +60,8 @@
                 android:hint="Dirección"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/contorno_edit"
-                android:padding="10dp"/>
+                android:padding="10dp"
+                android:inputType="textCapWords"/>
             <EditText
                 android:id="@+id/etLocalidad"
                 android:layout_width="match_parent"
@@ -65,7 +69,8 @@
                 android:hint="Localidad"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/contorno_edit"
-                android:padding="10dp"/>
+                android:padding="10dp"
+                android:inputType="textCapWords"/>
             <EditText
                 android:id="@+id/etOrganizacion"
                 android:layout_width="match_parent"
@@ -73,7 +78,8 @@
                 android:hint="Organización"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/contorno_edit"
-                android:padding="10dp"/>
+                android:padding="10dp"
+                android:inputType="textCapWords"/>
             <EditText
                 android:id="@+id/etTelefono"
                 android:layout_width="match_parent"
@@ -81,7 +87,8 @@
                 android:hint="Teléfono  "
                 android:layout_marginTop="15dp"
                 android:background="@drawable/contorno_edit"
-                android:padding="10dp"/>
+                android:padding="10dp"
+                android:inputType="number"/>
             <Switch
                 android:id="@+id/swPublico"
                 android:layout_width="wrap_content"

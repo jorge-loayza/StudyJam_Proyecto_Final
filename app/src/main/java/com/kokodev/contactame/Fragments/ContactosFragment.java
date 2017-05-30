@@ -1,14 +1,19 @@
 package com.kokodev.contactame.Fragments;
 
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -50,6 +55,7 @@ public class ContactosFragment extends Fragment {
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
 
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
 
     private ProgressDialog progressDialog;
 
@@ -73,7 +79,7 @@ public class ContactosFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.hasChild(firebaseAuth.getCurrentUser().getUid())){
-                    crearContactos();
+                    verificarPermisos();
                 }
             }
 
@@ -90,20 +96,45 @@ public class ContactosFragment extends Fragment {
 
 
         progressDialog = new ProgressDialog(getContext());
-
-
+        rvContactos.setAdapter(contactosAdapter);
+        llenarContactos();
         return view;
+    }
+
+    private void verificarPermisos() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(getContext(),Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSIONS_REQUEST_READ_CONTACTS);
+            //After this point you wait for callback in onRequestPermissionsResult(int, String[], int[]) overriden method
+        } else {
+            // Android version is lesser than 6.0 or the permission is already granted.
+            crearContactos();
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission is granted
+                crearContactos();
+            } else {
+                Toast.makeText(getContext(), "Necesitas Otorgar permisos para sincronizar tus contactos.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void crearContactos() {
         List<String> contactos = getAllContacts();
 
         for (final String telefono:contactos) {
-            Log.i("tel",telefono);
             DatabaseReference usuarios = databaseReference.child("usuarios");
             usuarios.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+
                     for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
                         Contacto con = snapshot.getValue(Contacto.class);
                         DatabaseReference refContactos = databaseReference.child("contactos_usuario").child(firebaseAuth.getCurrentUser().getUid());
@@ -147,28 +178,36 @@ public class ContactosFragment extends Fragment {
     }
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        progressDialog.setMessage("Espere...");
-        llenarContactos();
-    }
 
     private void llenarContactos() {
 
+        listaContactos.clear();
         DatabaseReference contactos = databaseReference.child("contactos_usuario/"+firebaseAuth.getCurrentUser().getUid());
         contactos.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                //Log.i("key",dataSnapshot.getKey());
+
                 DatabaseReference usuariosref = databaseReference.child("usuarios/"+dataSnapshot.getKey());
                 usuariosref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Contacto con = dataSnapshot.getValue(Contacto.class);
-                        listaContactos.add(con);
-                        //Log.i("size",listaContactos.size()+"");
-                        contactosAdapter.notifyDataSetChanged();
+                        Contacto contacto = dataSnapshot.getValue(Contacto.class);
+
+
+                        Boolean w = true;
+                        for (Contacto con :
+                                listaContactos) {
+                            if (con.getIdContacto().equals(contacto.getIdContacto())){
+                                w= false;
+                            }
+                        }
+                        if (w){
+                            listaContactos.add(contacto);
+                            contactosAdapter.notifyDataSetChanged();
+                        }
+
+
+
                     }
 
                     @Override
@@ -185,7 +224,7 @@ public class ContactosFragment extends Fragment {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                llenarContactos();
             }
 
             @Override
@@ -198,55 +237,7 @@ public class ContactosFragment extends Fragment {
 
             }
         });
-        //Log.i("size",listaContactos.size()+"");
-        rvContactos.setAdapter(contactosAdapter);
 
-
-       /*
-        final List<String> keys = new ArrayList<>();
-        if (firebaseAuth.getCurrentUser().getUid()!= null){
-
-            databaseReference.child("contactos_usuario").child(firebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    keys.clear();
-                    for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-            //            Log.i("num",snapshot.getKey());
-                        keys.add(snapshot.getKey());
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-
-           databaseReference.child("usuarios").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    listaContactos.removeAll(listaContactos);
-                    for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
-                        if (keys.contains(snapshot.getKey())){
-
-                            Contacto con = snapshot.getValue(Contacto.class);
-                            listaContactos.add(con);
-                        }
-
-                    }
-                    contactosAdapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-            rvContactos.setAdapter(contactosAdapter);
-       }*/
 
     }
 

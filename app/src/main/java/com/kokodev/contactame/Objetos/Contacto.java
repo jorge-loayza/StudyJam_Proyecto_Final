@@ -1,25 +1,19 @@
 package com.kokodev.contactame.Objetos;
 
+import java.io.Serializable;
+
 /**
  * Created by koko on 15-05-17.
  */
 
-public class Contacto {
-    String nombres,apellidos,correo_electronico,telefono,imagen_usuario,id_tarjeta;
+public class Contacto implements Serializable {
+    String idContacto,nombres,apellidos,correo_electronico,telefono,imagen_usuario;
 
     public Contacto() {
     }
 
-    public Contacto(String nombres, String apellidos, String correo_electronico, String telefono, String imagen_usuario, String id_tarjeta) {
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.correo_electronico = correo_electronico;
-        this.telefono = telefono;
-        this.imagen_usuario = imagen_usuario;
-        this.id_tarjeta = id_tarjeta;
-    }
-
-    public Contacto(String nombres, String apellidos, String correo_electronico, String telefono, String imagen_usuario) {
+    public Contacto(String idContacto, String nombres, String apellidos, String correo_electronico, String telefono, String imagen_usuario) {
+        this.idContacto = idContacto;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.correo_electronico = correo_electronico;
@@ -65,5 +59,13 @@ public class Contacto {
 
     public void setImagen_usuario(String imagen_usuario) {
         this.imagen_usuario = imagen_usuario;
+    }
+
+    public String getIdContacto() {
+        return idContacto;
+    }
+
+    public void setIdContacto(String idContacto) {
+        this.idContacto = idContacto;
     }
 }

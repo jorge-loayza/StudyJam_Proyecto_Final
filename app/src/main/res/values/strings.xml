@@ -17,7 +17,7 @@
     <string name="correo_invalido">Correo electrónico inválido.</string>
     <string name="debe_lenar_todos_los_campos">Debe llenar todo los campos.</string>
     <string name="telefono_inválido">Teléfono inválido</string>
-    <string name="nombre_inválido">Nombre inválido</string>
+    <string name="nombre_invalido">Nombre invalido</string>
     <string name="contactos">Contactos</string>
     <string name="tarjetas_de_contactos">Tarjetas de Contacto</string>
     <string name="salir">Salir</string>
@@ -25,6 +25,14 @@
     <string name="descripcion_aplicacion">Aplicación para mantener todos los contactos sincronizados.\nTambién se puede buscar tarjetas de presenación.</string>
     <string name="buscar">Buscar</string>
     <string name="buscar_tarjetas">Buscar Tarjetas</string>
+    <string name="crear_nueva_cuenta">CREAR NUEVA CUENTA</string>
+    <string name="mi_tarjeta">My Tarjeta</string>
+    <string name="se_cancelo_lectura_qr">Se calcelo la lectura del código QR.</string>
+    <string name="se_elimino_tarjeta">Se eliminó la Tarjeta</string>
+    <string name="qr_invalido">Código QR invalido.</string>
+    <string name="se_agrego_tarjeta">Se agregó la tarjeta</string>
+    <string name="edicion_perfil">Edición de Perfil</string>
+    <string name="apellido_invalido">Apellido invalido.</string>
 
 
 </resources>

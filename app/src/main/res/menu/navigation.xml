@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/navigation_tarjetas"
-        android:icon="@drawable/ic_person_black"
+        android:icon="@drawable/ic_card_membership_black"
         android:title="@string/tarjetas"/>
 
     <item

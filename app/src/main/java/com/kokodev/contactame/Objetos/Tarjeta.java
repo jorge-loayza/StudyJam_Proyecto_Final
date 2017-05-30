@@ -1,18 +1,21 @@
 package com.kokodev.contactame.Objetos;
 
+import java.io.Serializable;
+
 /**
  * Created by koko on 13-05-17.
  */
 
-public class Tarjeta {
+public class Tarjeta implements Serializable{
 
-    private String cargo,pagina,descripcion,direccion,localidad,organizacion,telefono,imagenTarjeta;
+    private String id_tarjeta,cargo,pagina,descripcion,direccion,localidad,organizacion,telefono,imagenTarjeta,codigoQR;
     private Boolean publico;
 
     public Tarjeta() {
     }
 
-    public Tarjeta(String cargo, String pagina, String descripcion, String direccion, String localidad, String organizacion, String telefono, String imagenTarjeta, Boolean publico) {
+    public Tarjeta(String id_tarjeta, String cargo, String pagina, String descripcion, String direccion, String localidad, String organizacion, String telefono, String imagenTarjeta, String codigoQR, Boolean publico) {
+        this.id_tarjeta = id_tarjeta;
         this.cargo = cargo;
         this.pagina = pagina;
         this.descripcion = descripcion;
@@ -21,6 +24,7 @@ public class Tarjeta {
         this.organizacion = organizacion;
         this.telefono = telefono;
         this.imagenTarjeta = imagenTarjeta;
+        this.codigoQR = codigoQR;
         this.publico = publico;
     }
 
@@ -94,5 +98,21 @@ public class Tarjeta {
 
     public void setPublico(Boolean publico) {
         this.publico = publico;
+    }
+
+    public String getCodigoQR() {
+        return codigoQR;
+    }
+
+    public void setCodigoQR(String codigoQR) {
+        this.codigoQR = codigoQR;
+    }
+
+    public String getId_tarjeta() {
+        return id_tarjeta;
+    }
+
+    public void setId_tarjeta(String id_tarjeta) {
+        this.id_tarjeta = id_tarjeta;
     }
 }

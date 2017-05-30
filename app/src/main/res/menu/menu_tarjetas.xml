@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="Actualizar"
+        android:icon="@drawable/ic_autorenew_white_24dp"
+        android:id="@+id/icActualizarTarjetas"
+        app:showAsAction="always"/>
+    <item
+        android:title="Agregar"
+        android:icon="@drawable/ic_add_white"
+        android:id="@+id/icAgregarTarjeta"
+        app:showAsAction="always"/>
+</menu>

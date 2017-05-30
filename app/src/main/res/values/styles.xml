@@ -11,5 +11,8 @@
     <style name="AcercaTheme" parent="Theme.AppCompat">
         <item name="android:background">@color/colorPrimary</item>
     </style>
+    <style name="SinActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
 
 </resources>
