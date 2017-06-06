@@ -30,8 +30,10 @@
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorDivider"></View>
+            android:layout_height="0.5dp"
+            android:background="@color/colorDivider"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"></View>
         <LinearLayout
             android:id="@+id/llMiTarjeta"
             android:layout_width="match_parent"
@@ -54,8 +56,10 @@
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorDivider"></View>
+            android:layout_height="0.5dp"
+            android:background="@color/colorDivider"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"></View>
 
         <LinearLayout
             android:id="@+id/llAcerca"
@@ -80,8 +84,10 @@
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorDivider"></View>
+            android:layout_height="0.5dp"
+            android:background="@color/colorDivider"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"></View>
         <LinearLayout
             android:id="@+id/llSalir"
             android:layout_width="match_parent"

@@ -33,6 +33,10 @@
     <string name="se_agrego_tarjeta">Se agregó la tarjeta</string>
     <string name="edicion_perfil">Edición de Perfil</string>
     <string name="apellido_invalido">Apellido invalido.</string>
+    <string name="perfil_editado">Perfil editado.</string>
+    <string name="decargando">Descargando...</string>
+    <string name="tarjeta_editada">Tarjeta editada.</string>
+    <string name="actualizando_tarjeta">Actualizando Tarjeta...</string>
 
 
 </resources>

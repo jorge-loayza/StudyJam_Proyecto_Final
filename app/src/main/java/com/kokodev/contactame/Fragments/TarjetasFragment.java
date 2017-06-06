@@ -182,40 +182,6 @@ public class TarjetasFragment extends Fragment {
     private void llenarTarjetas() {
 
 
-
-/*
-        databaseReferenceTarjetasUsuario.child(idUsuario).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                tamanoLista = (int) dataSnapshot.getChildrenCount();
-
-                for (DataSnapshot datos :
-                        dataSnapshot.getChildren()) {
-
-                    DatabaseReference tarjetaRef = databaseReferenceTarjetas.child(datos.getKey());
-                    tarjetaRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            Tarjeta tarjeta = dataSnapshot.getValue(Tarjeta.class);
-                            Log.i("onStart","tarjeta"+tarjeta.getCargo());
-                            listaTarjetas.add(tarjeta);
-                            tarjetasAdapter.notifyDataSetChanged();
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
-
         listaTarjetas.clear();
 
         ChildEventListener childEventListener = new ChildEventListener() {
@@ -235,7 +201,6 @@ public class TarjetasFragment extends Fragment {
                             }
                         }
                         if (w){
-                            Log.i("onStart","agrego tarjeta");
                             listaTarjetas.add(tarjeta);
                             tarjetasAdapter.notifyDataSetChanged();
                         }
@@ -297,7 +262,6 @@ public class TarjetasFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.findItem(R.id.icActualizar).setVisible(false);
         inflater.inflate(R.menu.menu_tarjetas,menu);
 
     }

@@ -106,14 +106,9 @@ public class AjustesFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
     }
 
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        menu.clear();
-    }
 
     private void tieneTarjeta() {
         final String usuarioID = firebaseAuth.getCurrentUser().getUid().toString();

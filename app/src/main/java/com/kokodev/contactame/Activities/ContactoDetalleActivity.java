@@ -44,7 +44,10 @@ public class ContactoDetalleActivity extends AppCompatActivity {
         tvApellidos.setText(contacto.getApellidos());
         tvCorreo.setText(contacto.getCorreo_electronico());
         tvTelefono.setText(contacto.getTelefono());
-        setImage(getApplicationContext(),contacto.getImagen_usuario());
+        if (contacto.getImagen_usuario() != null){
+            setImage(getApplicationContext(),contacto.getImagen_usuario());
+        }
+
         ivLlamar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

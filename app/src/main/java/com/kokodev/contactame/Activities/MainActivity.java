@@ -71,13 +71,13 @@ public class MainActivity extends AppCompatActivity {
                     getSupportActionBar().setTitle(R.string.tarjetas_de_contactos);
                     getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout,tarjetasFragment).commit();
                     return true;
-                case R.id.navigation_buscar:
+                /*case R.id.navigation_buscar:
                     if (resTap != 0) {
                         spTap.play(resTap,1,1,0,0,1);
                     }
                     getSupportActionBar().setTitle(R.string.buscar_tarjetas);
                     getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout,buscarFragment).commit();
-                    return true;
+                    return true;*/
                 case R.id.navigation_ajustes:
                     if (resTap != 0) {
                         spTap.play(resTap,1,1,0,0,1);
@@ -91,13 +91,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_contactos,menu);
-        return super.onCreateOptionsMenu(menu);
-
-    }
 
     private void createSoundPool() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -136,15 +129,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.icActualizar) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout,contactosFragment).commit();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

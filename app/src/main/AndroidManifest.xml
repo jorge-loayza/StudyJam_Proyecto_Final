@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
@@ -21,20 +21,20 @@
         <activity
             android:name=".SplashScreen"
             android:screenOrientation="portrait"
-            android:theme="@style/SinActionBar"></activity>
-        <activity
-            android:name=".Activities.LogInActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/SinActionBar" />
-        <activity
-            android:name=".Activities.MainActivity"
-            android:screenOrientation="portrait">
+            android:theme="@style/SinActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Activities.LogInActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SinActionBar" />
+        <activity
+            android:name=".Activities.MainActivity"
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".Activities.CrearTarjetaActivity" />
         <activity
             android:name=".Activities.CrearPerfilActivity"
@@ -64,7 +64,8 @@
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
-        <activity android:name=".Activities.EditarPerfilActivity"></activity>
+        <activity android:name=".Activities.EditarPerfilActivity" />
+        <activity android:name=".Activities.EditarTarjetaActivity"></activity>
     </application>
 
 </manifest>

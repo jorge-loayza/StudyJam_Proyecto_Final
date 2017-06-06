@@ -11,10 +11,12 @@
         android:icon="@drawable/ic_card_membership_black"
         android:title="@string/tarjetas"/>
 
+<!--
     <item
     android:id="@+id/navigation_buscar"
     android:icon="@drawable/ic_search_black"
     android:title="@string/buscar"/>
+-->
 
     <item
         android:id="@+id/navigation_ajustes"

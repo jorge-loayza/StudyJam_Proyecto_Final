@@ -78,13 +78,13 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
         btnCancelarEdicion = (Button) findViewById(R.id.btnCancelarEdicion);
 
 
-        etNombre.setHint(usuario.getNombres());
-        etApellidos.setHint(usuario.getApellidos());
-        etTelefono.setHint(usuario.getTelefono());
+
+        etNombre.setText(usuario.getNombres());
+        etApellidos.setText(usuario.getApellidos());
+        etTelefono.setText(usuario.getTelefono());
         if (usuario.getImagen_usuario() != null){
             setImage(getApplicationContext(),usuario.getImagen_usuario());
         }
-
 
         ibImagenPerfil.setOnClickListener(this);
         btnEditarPerfil.setOnClickListener(this);
@@ -118,32 +118,45 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
 
         final String usuarioID =firebaseUser.getUid();
 
-        if (!TextUtils.isEmpty(nombre) &&!TextUtils.isEmpty(apellidos)&&!TextUtils.isEmpty(telefono)&& imagenUri != null){
+        if (!TextUtils.isEmpty(nombre) &&!TextUtils.isEmpty(apellidos)&&!TextUtils.isEmpty(telefono)){
             if (validarNombre(nombre) && validarTelefono(telefono) && validarNombre(apellidos)){
                 progressDialog.setMessage("Guardando Cambios...");
                 progressDialog.show();
 
+                if (imagenUri == null){
+                    databaseReferenceUsuario.child(usuarioID).child("nombres").setValue(nombre);
+                    databaseReferenceUsuario.child(usuarioID).child("apellidos").setValue(apellidos);
+                    databaseReferenceUsuario.child(usuarioID).child("telefono").setValue(telefono);
+                    progressDialog.dismiss();
+                    Intent mainIntent = new Intent(getApplicationContext(),MainActivity.class);
+                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    finish();
+                    startActivity(mainIntent);
+                    Toast.makeText(getApplicationContext(), R.string.perfil_editado,Toast.LENGTH_LONG).show();
+                }else{
+                    StorageReference ruta = storageReference.child(usuarioID);
+                    ruta.putFile(imagenUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                StorageReference ruta = storageReference.child(usuarioID);
-                ruta.putFile(imagenUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            String downloadUrl = taskSnapshot.getDownloadUrl().toString();
 
-                        String downloadUrl = taskSnapshot.getDownloadUrl().toString();
+                            databaseReferenceUsuario.child(usuarioID).child("nombres").setValue(nombre);
+                            databaseReferenceUsuario.child(usuarioID).child("apellidos").setValue(apellidos);
+                            databaseReferenceUsuario.child(usuarioID).child("telefono").setValue(telefono);
+                            databaseReferenceUsuario.child(usuarioID).child("imagen_usuario").setValue(downloadUrl);
 
-                        databaseReferenceUsuario.child(usuarioID).child("nombres").setValue(nombre);
-                        databaseReferenceUsuario.child(usuarioID).child("apellidos").setValue(apellidos);
-                        databaseReferenceUsuario.child(usuarioID).child("telefono").setValue(telefono);
-                        databaseReferenceUsuario.child(usuarioID).child("imagen_usuario").setValue(downloadUrl);
+                            progressDialog.dismiss();
 
-                        progressDialog.dismiss();
+                            Intent mainIntent = new Intent(getApplicationContext(),MainActivity.class);
+                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            finish();
+                            startActivity(mainIntent);
+                            Toast.makeText(getApplicationContext(), R.string.perfil_editado,Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
 
-                        Intent mainIntent = new Intent(getApplicationContext(),MainActivity.class);
-                        mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        finish();
-                        startActivity(mainIntent);
-                    }
-                });
             }
         }else{
             Toast.makeText(getApplicationContext(), R.string.debe_lenar_todos_los_campos,Toast.LENGTH_LONG).show();
@@ -187,7 +200,7 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
     }
 
     private boolean validarNombre(String nombre) {
-        Pattern patron = Pattern.compile("^[a-zA-Z ]+$");
+        Pattern patron = Pattern.compile("^[a-zA-Z .]+$+");
         if (!patron.matcher(nombre).matches() || nombre.length() > 30) {
             etNombre.setError(getString(R.string.nombre_invalido));
             return false;

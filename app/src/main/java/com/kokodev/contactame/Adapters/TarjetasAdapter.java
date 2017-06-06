@@ -12,10 +12,14 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.kokodev.contactame.Activities.TarjetaActivity;
 import com.kokodev.contactame.Fragments.TarjetasFragment;
+import com.kokodev.contactame.Objetos.Contacto;
 import com.kokodev.contactame.Objetos.Tarjeta;
 import com.kokodev.contactame.R;
 import com.squareup.picasso.Callback;
@@ -72,6 +76,8 @@ public class TarjetasAdapter extends RecyclerView.Adapter<TarjetasAdapter.Tarjet
         TextView tvCargo;
         ImageView ivImagenTarjeta,ivBorrarTarjeta;
         private Tarjeta tarjeta;
+        private Contacto contacto;
+        private DatabaseReference databaseReferenceContacto;
         View mView;
         Context ctx;
 
@@ -84,15 +90,6 @@ public class TarjetasAdapter extends RecyclerView.Adapter<TarjetasAdapter.Tarjet
             ivBorrarTarjeta = (ImageView) itemView.findViewById(R.id.ivBorrarTarjeta);
             mView = itemView;
             this.ctx = context;
-            mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(mView.getContext(), TarjetaActivity.class);
-                    intent.putExtra("tarjeta",tarjeta);
-                    intent.putExtra("vista",true);
-                    mView.getContext().startActivity(intent);
-                }
-            });
             ivBorrarTarjeta.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -102,11 +99,36 @@ public class TarjetasAdapter extends RecyclerView.Adapter<TarjetasAdapter.Tarjet
                     Toast.makeText(ctx, R.string.se_elimino_tarjeta,Toast.LENGTH_SHORT).show();
                 }
             });
+
+
+
         }
 
-        public void setTarjeta(Tarjeta tarjeta) {
+        public void setTarjeta(final Tarjeta tarjeta) {
             this.tarjeta = tarjeta;
+            databaseReferenceContacto = FirebaseDatabase.getInstance().getReference().child("usuarios").child(tarjeta.getId_tarjeta());
+            databaseReferenceContacto.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    contacto = dataSnapshot.getValue(Contacto.class);
+                    mView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(mView.getContext(), TarjetaActivity.class);
+                            intent.putExtra("tarjeta",tarjeta);
+                            intent.putExtra("contacto",contacto);
+                            intent.putExtra("vista",true);
+                            mView.getContext().startActivity(intent);
+                        }
+                    });
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
+
 
         public void setCargo(String cargo){
             //TextView tvCargo = (TextView) mView.findViewById(R.id.tvCargoTarjeta);

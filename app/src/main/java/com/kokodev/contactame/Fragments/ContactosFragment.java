@@ -18,6 +18,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -64,6 +67,11 @@ public class ContactosFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,6 +107,22 @@ public class ContactosFragment extends Fragment {
         rvContactos.setAdapter(contactosAdapter);
         llenarContactos();
         return view;
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_contactos,menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.icActualizar) {
+            llenarContactos();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void verificarPermisos() {
@@ -192,7 +216,6 @@ public class ContactosFragment extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Contacto contacto = dataSnapshot.getValue(Contacto.class);
-
 
                         Boolean w = true;
                         for (Contacto con :

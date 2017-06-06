@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    tools:context="com.kokodev.contactame.Activities.EditarTarjetaActivity">
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,7 +20,7 @@
             android:layout_marginTop="15dp">
 
             <ImageButton
-                android:id="@+id/ibImagenTarjeta"
+                android:id="@+id/ibImgTarjeta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -27,7 +30,7 @@
                 android:adjustViewBounds="true"/>
 
             <EditText
-                android:id="@+id/etCargo"
+                android:id="@+id/etCar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Cargo"
@@ -36,7 +39,7 @@
                 android:padding="10dp"
                 android:inputType="textCapWords"/>
             <EditText
-                android:id="@+id/etPaginaWeb"
+                android:id="@+id/etWeb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="PaginaWeb"
@@ -45,7 +48,7 @@
                 android:padding="10dp"
                 android:inputType="textWebEditText"/>
             <EditText
-                android:id="@+id/etDescripcion"
+                android:id="@+id/etDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Descripcion"
@@ -54,7 +57,7 @@
                 android:padding="10dp"
                 android:inputType="textCapSentences"/>
             <EditText
-                android:id="@+id/etDireccion"
+                android:id="@+id/etDir"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Dirección"
@@ -63,7 +66,7 @@
                 android:padding="10dp"
                 android:inputType="textCapWords"/>
             <EditText
-                android:id="@+id/etLocalidad"
+                android:id="@+id/etLoc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Localidad"
@@ -72,7 +75,7 @@
                 android:padding="10dp"
                 android:inputType="textCapWords"/>
             <EditText
-                android:id="@+id/etOrganizacion"
+                android:id="@+id/etOrg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Organización"
@@ -81,7 +84,7 @@
                 android:padding="10dp"
                 android:inputType="textCapWords"/>
             <EditText
-                android:id="@+id/etTelefono"
+                android:id="@+id/etTel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Teléfono  "
@@ -90,7 +93,7 @@
                 android:padding="10dp"
                 android:inputType="number"/>
             <Switch
-                android:id="@+id/swPublico"
+                android:id="@+id/swPub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hacer tarjeta pública: "
@@ -99,20 +102,37 @@
                 android:textSize="@dimen/normal_text"
                 android:contentDescription="Hacer Tarjeta pública."
                 android:switchPadding="10dp"/>
-            <Button
-                android:id="@+id/btnCrearTarjeta"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
-                android:background="@color/colorPrimary"
-                android:text="Crear Tarjeta"
-                android:textColor="@color/colorText"
+                android:orientation="horizontal"
                 android:layout_marginTop="20dp"
-                android:textSize="@dimen/normal_text"/>
+                android:layout_marginBottom="25dp">
+                <Button
+                    android:id="@+id/btnEditarTarjeta"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:text="Editar"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/normal_text"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"/>
+                <Button
+                    android:id="@+id/btnCancelarEditTarjeta"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAdvertencia"
+                    android:text="Cancelar"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/normal_text"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
-
 
 </RelativeLayout>

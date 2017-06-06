@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.zxing.BarcodeFormat;
@@ -44,6 +47,7 @@ public class CrearTarjetaActivity extends AppCompatActivity implements View.OnCl
     Button btnCrearTarjeta;
     private String usuarioID;
     Uri imagenUri = null;
+
 
     StorageReference storageReference;
 
@@ -72,14 +76,6 @@ public class CrearTarjetaActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-       /* if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK){
-
-            imagenUri = data.getData();
-            imageButton.setImageURI(imagenUri);
-
-        }*/
-
 
         if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK){
             Uri imagenUri = data.getData();
@@ -120,6 +116,7 @@ public class CrearTarjetaActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
+
     private void guardarTarjeta() {
 
         progressDialog.setMessage("Guardando Tarjeta...");
@@ -150,7 +147,6 @@ public class CrearTarjetaActivity extends AppCompatActivity implements View.OnCl
                     final Uri imagenURL = taskSnapshot.getDownloadUrl();
 
 
-
                     MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
                     try {
                         BitMatrix bitMatrix = multiFormatWriter.encode(usuarioID, BarcodeFormat.QR_CODE,200,200);
@@ -160,6 +156,11 @@ public class CrearTarjetaActivity extends AppCompatActivity implements View.OnCl
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                         byte[] data = baos.toByteArray();
+
+                        StorageMetadata storageMetadata = new StorageMetadata.Builder()
+                                .setContentType("image/jpeg")
+                                .build();
+
 
                         UploadTask uploadTask = ruta2.putBytes(data);
                         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -197,7 +198,7 @@ public class CrearTarjetaActivity extends AppCompatActivity implements View.OnCl
 
         }else
         {
-            Toast.makeText(getApplicationContext(),"Debe llenar todos los campos",Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(),"Debe llenar todos los campos",Toast.LENGTH_LONG).show();
         }
 
     }
@@ -221,6 +222,8 @@ public class CrearTarjetaActivity extends AppCompatActivity implements View.OnCl
 
         imageButton.setOnClickListener(this);
         btnCrearTarjeta.setOnClickListener(this);
+
+
 
     }
 
