@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -52,6 +53,9 @@ import java.util.List;
 public class ContactosFragment extends Fragment {
 
     private RecyclerView rvContactos;
+
+    private SwipeRefreshLayout srlSwipeContactos;
+
     private View view;
     private List<Contacto> listaContactos;
     private ContactosAdapter contactosAdapter;
@@ -70,7 +74,7 @@ public class ContactosFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
     }
 
     @Override
@@ -99,6 +103,17 @@ public class ContactosFragment extends Fragment {
 
         rvContactos = (RecyclerView) view.findViewById(R.id.rvListaContactos);
         rvContactos.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        srlSwipeContactos = (SwipeRefreshLayout) view.findViewById(R.id.srlSwipeContactos);
+        srlSwipeContactos.setColorSchemeResources(R.color.colorAccent);
+        srlSwipeContactos.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                verificarPermisos();
+                llenarContactos();
+            }
+        });
+
         listaContactos = new ArrayList<>();
         contactosAdapter = new ContactosAdapter(listaContactos,getContext());
 
@@ -110,7 +125,7 @@ public class ContactosFragment extends Fragment {
 
     }
 
-    @Override
+   /* @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_contactos,menu);
@@ -119,11 +134,12 @@ public class ContactosFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.icActualizar) {
+            verificarPermisos();
             llenarContactos();
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     private void verificarPermisos() {
 
@@ -222,6 +238,7 @@ public class ContactosFragment extends Fragment {
                                 listaContactos) {
                             if (con.getIdContacto().equals(contacto.getIdContacto())){
                                 w= false;
+                                Log.i("dato",contacto.getNombres());
                             }
                         }
                         if (w){
@@ -260,7 +277,7 @@ public class ContactosFragment extends Fragment {
 
             }
         });
-
+        srlSwipeContactos.setRefreshing(false);
 
     }
 

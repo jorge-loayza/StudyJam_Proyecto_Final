@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +44,9 @@ import java.util.List;
 public class TarjetasFragment extends Fragment {
 
     private RecyclerView rvTarjetas;
+
+    private SwipeRefreshLayout srlSwipeTarjetas;
+
     private View view;
     private List<Tarjeta> listaTarjetas;
     List<String> cods;
@@ -77,6 +82,17 @@ public class TarjetasFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         rvTarjetas = (RecyclerView) view.findViewById(R.id.rvListaTarjetas);
         rvTarjetas.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        srlSwipeTarjetas = (SwipeRefreshLayout) view.findViewById(R.id.srlSwipeTarjetas);
+        srlSwipeTarjetas.setColorSchemeResources(R.color.colorAccent);
+
+        srlSwipeTarjetas.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                llenarTarjetas();
+            }
+        });
+
         listaTarjetas = new ArrayList<>();
         cods = new ArrayList<>();
         tarjetasAdapter = new TarjetasAdapter(listaTarjetas,getContext());
@@ -96,7 +112,7 @@ public class TarjetasFragment extends Fragment {
                 if (!(dataSnapshot.getChildrenCount()>0)){
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setCancelable(false).setMessage("Le gustaria agregar las tarjetas de sus contactos?");
+                    builder.setCancelable(false).setMessage(R.string.desea_agregar_tarjetas_de_contactos);
                     builder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
@@ -112,6 +128,7 @@ public class TarjetasFragment extends Fragment {
                     dialog.show();
 
                 }else{
+                    crearTarjetasUsuario();
                     llenarTarjetas();
                 }
 
@@ -183,7 +200,7 @@ public class TarjetasFragment extends Fragment {
 
 
         listaTarjetas.clear();
-
+        tarjetasAdapter.notifyDataSetChanged();
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -216,7 +233,7 @@ public class TarjetasFragment extends Fragment {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                llenarTarjetas();
             }
 
             @Override
@@ -234,7 +251,7 @@ public class TarjetasFragment extends Fragment {
             }
         };
         databaseReferenceTarjetasUsuario.child(idUsuario).addChildEventListener(childEventListener);
-
+        srlSwipeTarjetas.setRefreshing(false);
     }
 
     @Override
@@ -252,8 +269,23 @@ public class TarjetasFragment extends Fragment {
                     .initiateScan();
             return true;
         }
-        if (id == R.id.icActualizarTarjetas) {
-            llenarTarjetas();
+       if (id == R.id.icActualizarTarjetas) {
+           AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+           builder.setCancelable(false).setMessage(R.string.desea_agregar_tarjetas_de_contactos);
+           builder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+               public void onClick(DialogInterface dialog, int id) {
+
+                   crearTarjetasUsuario();
+                   llenarTarjetas();
+               }
+           });
+           builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+               public void onClick(DialogInterface dialog, int id) {
+
+               }
+           });
+           AlertDialog dialog = builder.create();
+           dialog.show();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -261,8 +293,7 @@ public class TarjetasFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_tarjetas,menu);
-
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

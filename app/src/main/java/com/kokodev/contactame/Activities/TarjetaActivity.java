@@ -100,6 +100,14 @@ public class TarjetaActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if(sw){
+            menu.clear();
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.opGenerarQR) {
@@ -126,8 +134,10 @@ public class TarjetaActivity extends AppCompatActivity {
         }
 
         final File myFile = new File(storagePath,"Mi_Tarjeta.jpg");
-        if (myFile.exists()){
-            myFile.delete();
+        if (!myFile.exists()){
+            myFile.mkdirs();
+        }else{
+            Toast.makeText(getApplicationContext(),"QR guardado en Mi_Tarjeta(Contactame)/Mi_Tarjeta.jpg",Toast.LENGTH_LONG).show();
         }
         storageReference.getFile(myFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override

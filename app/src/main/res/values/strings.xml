@@ -22,7 +22,7 @@
     <string name="tarjetas_de_contactos">Tarjetas de Contacto</string>
     <string name="salir">Salir</string>
     <string name="mensaje_salida">¿Esta seguro que quiere salir?</string>
-    <string name="descripcion_aplicacion">Aplicación para mantener todos los contactos sincronizados.\nTambién se puede buscar tarjetas de presenación.</string>
+    <string name="descripcion_aplicacion">Aplicación para mantener todos tus contactos y tarjetas de presentación actualizados.</string>
     <string name="buscar">Buscar</string>
     <string name="buscar_tarjetas">Buscar Tarjetas</string>
     <string name="crear_nueva_cuenta">CREAR NUEVA CUENTA</string>
@@ -37,6 +37,7 @@
     <string name="decargando">Descargando...</string>
     <string name="tarjeta_editada">Tarjeta editada.</string>
     <string name="actualizando_tarjeta">Actualizando Tarjeta...</string>
+    <string name="desea_agregar_tarjetas_de_contactos">¿Desea agregar las tarjetas de sus contactos?</string>
 
 
 </resources>
