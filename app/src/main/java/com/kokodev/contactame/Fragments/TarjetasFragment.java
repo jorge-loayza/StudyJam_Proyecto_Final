@@ -37,6 +37,8 @@ import com.kokodev.contactame.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,7 +58,7 @@ public class TarjetasFragment extends Fragment {
     private FloatingActionButton fabAgregarTarjeta;
     private FirebaseAuth firebaseAuth;
     private String idUsuario;
-    private int tamanoLista = 0;
+
     public TarjetasFragment() {
         // Required empty public constructor
     }
@@ -117,6 +119,7 @@ public class TarjetasFragment extends Fragment {
                         public void onClick(DialogInterface dialog, int id) {
 
                             crearTarjetasUsuario();
+                            llenarTarjetas();
                         }
                     });
                     builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -220,6 +223,7 @@ public class TarjetasFragment extends Fragment {
                         if (w){
                             listaTarjetas.add(tarjeta);
                             tarjetasAdapter.notifyDataSetChanged();
+                            srlSwipeTarjetas.setRefreshing(false);
                         }
 
                     }
@@ -251,7 +255,6 @@ public class TarjetasFragment extends Fragment {
             }
         };
         databaseReferenceTarjetasUsuario.child(idUsuario).addChildEventListener(childEventListener);
-        srlSwipeTarjetas.setRefreshing(false);
     }
 
     @Override

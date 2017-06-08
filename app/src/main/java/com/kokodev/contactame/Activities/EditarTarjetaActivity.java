@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -66,6 +67,10 @@ public class EditarTarjetaActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_tarjeta);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarEditarTarjeta);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Edición de Tarjeta");
         tarjeta = (Tarjeta)getIntent().getExtras().getSerializable("tarjeta");
 
         ibImgTarjeta = (ImageView) findViewById(R.id.ibImgTarjeta);

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -12,6 +13,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,7 +51,7 @@ public class TarjetaActivity extends AppCompatActivity {
             ,tvNom,tvEmail,tvTel;
     private ImageView ivTarjeta,ivImgUsuario,ivIcLlamar;
     private Button btnEditarTarjeta;
-    private LinearLayout llDatosContacto;
+    private LinearLayout llDatosContacto,llTelefonoContacto;
 
     private Boolean sw = false;
     private ProgressDialog progressDialog;
@@ -58,8 +60,12 @@ public class TarjetaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tarjeta);
 
-        getSupportActionBar().setTitle("");
 
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarTarjetas);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         progressDialog = new ProgressDialog(this);
 
         tarjeta = (Tarjeta)getIntent().getExtras().getSerializable("tarjeta");
@@ -81,12 +87,14 @@ public class TarjetaActivity extends AppCompatActivity {
             });
         }
         llDatosContacto = (LinearLayout) findViewById(R.id.llDatosContacto);
+        llTelefonoContacto = (LinearLayout) findViewById(R.id.llTelefonoContacto);
 
         if (getIntent().getExtras().getSerializable("contacto") !=null){
             sw = true;
             contacto = (Contacto) getIntent().getExtras().getSerializable("contacto");
         }else{
             llDatosContacto.setVisibility(View.GONE);
+            llTelefonoContacto.setVisibility(View.GONE);
         }
 
         initUI();
@@ -135,27 +143,41 @@ public class TarjetaActivity extends AppCompatActivity {
 
         final File myFile = new File(storagePath,"Mi_Tarjeta.jpg");
         if (!myFile.exists()){
-            myFile.mkdirs();
+            storageReference.getFile(myFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    progressDialog.dismiss();
+
+                    MediaScannerConnection.scanFile(getApplicationContext(),
+                            new String[] { myFile.getAbsolutePath() }, null,
+                            new MediaScannerConnection.OnScanCompletedListener() {
+                                @Override
+                                public void onScanCompleted(String path, Uri uri) {
+                                }
+                            });
+
+                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
+                    Uri data = Uri.parse("file://" + myFile.getAbsoluteFile());
+                    intent.setDataAndType(data, "image/*");
+                    startActivity(intent);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    progressDialog.dismiss();
+                    myFile.delete();
+                    Toast.makeText(getApplicationContext(),"Error al Descargar",Toast.LENGTH_LONG).show();
+                }
+            });
         }else{
+            progressDialog.dismiss();
             Toast.makeText(getApplicationContext(),"QR guardado en Mi_Tarjeta(Contactame)/Mi_Tarjeta.jpg",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
+            Uri data = Uri.parse("file://" + myFile.getAbsoluteFile());
+            intent.setDataAndType(data, "image/*");
+            startActivity(intent);
         }
-        storageReference.getFile(myFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                progressDialog.dismiss();
-                Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
-                Uri data = Uri.parse("file://" + myFile.getAbsoluteFile());
-                intent.setDataAndType(data, "image/*");
-                startActivity(intent);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                progressDialog.dismiss();
-                myFile.delete();
-                Toast.makeText(getApplicationContext(),"Error al Descargar",Toast.LENGTH_LONG).show();
-            }
-        });
+
     }
 
     private void initUI() {

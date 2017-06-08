@@ -35,7 +35,8 @@
         <activity
             android:name=".Activities.MainActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activities.CrearTarjetaActivity" />
+        <activity android:name=".Activities.CrearTarjetaActivity"
+            android:theme="@style/SinActionBar"/>
         <activity
             android:name=".Activities.CrearPerfilActivity"
             android:screenOrientation="portrait"
@@ -55,7 +56,8 @@
         <activity
             android:name=".Activities.TarjetaActivity"
             android:parentActivityName=".Activities.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/SinActionBar"/>
         <activity
             android:name=".Activities.ContactoDetalleActivity"
             android:parentActivityName=".Activities.MainActivity"
@@ -65,7 +67,8 @@
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
         <activity android:name=".Activities.EditarPerfilActivity" />
-        <activity android:name=".Activities.EditarTarjetaActivity"></activity>
+        <activity android:name=".Activities.EditarTarjetaActivity"
+            android:theme="@style/SinActionBar"></activity>
     </application>
 
 </manifest>

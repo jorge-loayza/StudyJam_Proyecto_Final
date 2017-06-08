@@ -1,71 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/SinActionBar">
+    style="@style/SinActionBar"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_centerInParent="true"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
-        <TextView
-            android:layout_width="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Inicio de Sesión"
-            android:textSize="@dimen/large_text"
-            android:layout_marginBottom="30dp"
-            android:layout_gravity="center_horizontal"/>
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inicio de Sesión"
+                android:textSize="@dimen/large_text"
+                android:layout_marginBottom="30dp"
+                android:layout_gravity="center_horizontal"/>
 
-        <EditText
-            android:id="@+id/etCorreo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Correo"
-            android:padding="10dp"
-            android:background="@drawable/contorno_edit"
-            android:inputType="textEmailAddress"/>
-        <EditText
-            android:id="@+id/etContrasena"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Contraseña"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:background="@drawable/contorno_edit"
-            android:inputType="textPassword"/>
-        <Button
-            android:id="@+id/btnIniciarSesion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="INICIAR SESIÓN"
-            android:layout_marginTop="25dp"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorText"
-            android:textStyle="bold"/>
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/btnGoogle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textAlignment="center"
-            android:layout_gravity="center_horizontal">
+            <EditText
+                android:id="@+id/etCorreo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Correo"
+                android:padding="10dp"
+                android:background="@drawable/contorno_edit"
+                android:inputType="textEmailAddress"/>
+            <EditText
+                android:id="@+id/etContrasena"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contraseña"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:background="@drawable/contorno_edit"
+                android:inputType="textPassword"/>
+            <Button
+                android:id="@+id/btnIniciarSesion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="INICIAR SESIÓN"
+                android:layout_marginTop="25dp"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/colorText"
+                android:textStyle="bold"/>
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/btnGoogle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal">
 
-        </com.google.android.gms.common.SignInButton>
-    </LinearLayout>
+            </com.google.android.gms.common.SignInButton>
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btnCrearCuenta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorText"
         android:textStyle="bold"
         android:text="@string/crear_nueva_cuenta" />
 
-</RelativeLayout>
+</LinearLayout>

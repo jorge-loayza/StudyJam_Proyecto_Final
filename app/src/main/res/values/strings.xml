@@ -38,6 +38,7 @@
     <string name="tarjeta_editada">Tarjeta editada.</string>
     <string name="actualizando_tarjeta">Actualizando Tarjeta...</string>
     <string name="desea_agregar_tarjetas_de_contactos">¿Desea agregar las tarjetas de sus contactos?</string>
+    <string name="cancelar">Cancelar</string>
 
 
 </resources>

@@ -4,6 +4,7 @@ package com.kokodev.contactame.Fragments;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -15,6 +16,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,8 +27,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -37,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.kokodev.contactame.Activities.CrearPerfilActivity;
+import com.kokodev.contactame.Activities.MainActivity;
 import com.kokodev.contactame.Adapters.ContactosAdapter;
 import com.kokodev.contactame.Adapters.TarjetasAdapter;
 import com.kokodev.contactame.Objetos.Contact;
@@ -46,6 +47,9 @@ import com.kokodev.contactame.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,7 +70,6 @@ public class ContactosFragment extends Fragment {
 
     private ProgressDialog progressDialog;
 
-
     public ContactosFragment() {
         // Required empty public constructor
     }
@@ -74,7 +77,8 @@ public class ContactosFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -109,7 +113,6 @@ public class ContactosFragment extends Fragment {
         srlSwipeContactos.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                verificarPermisos();
                 llenarContactos();
             }
         });
@@ -120,26 +123,39 @@ public class ContactosFragment extends Fragment {
 
         progressDialog = new ProgressDialog(getContext());
         rvContactos.setAdapter(contactosAdapter);
+
         llenarContactos();
         return view;
 
     }
 
-   /* @Override
+   @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_contactos,menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.icActualizar) {
-            verificarPermisos();
-            llenarContactos();
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setCancelable(true).setMessage("¿Buscar por nuevos contactos en el teléfono?");
+            builder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    verificarPermisos();
+                }
+            });
+            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }*/
+    }
 
     private void verificarPermisos() {
 
@@ -149,6 +165,7 @@ public class ContactosFragment extends Fragment {
         } else {
             // Android version is lesser than 6.0 or the permission is already granted.
             crearContactos();
+            llenarContactos();
         }
 
     }
@@ -160,6 +177,7 @@ public class ContactosFragment extends Fragment {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission is granted
                 crearContactos();
+                llenarContactos();
             } else {
                 Toast.makeText(getContext(), "Necesitas Otorgar permisos para sincronizar tus contactos.", Toast.LENGTH_SHORT).show();
             }
@@ -244,6 +262,7 @@ public class ContactosFragment extends Fragment {
                         if (w){
                             listaContactos.add(contacto);
                             contactosAdapter.notifyDataSetChanged();
+                            srlSwipeContactos.setRefreshing(false);
                         }
 
 
@@ -277,7 +296,7 @@ public class ContactosFragment extends Fragment {
 
             }
         });
-        srlSwipeContactos.setRefreshing(false);
+
 
     }
 

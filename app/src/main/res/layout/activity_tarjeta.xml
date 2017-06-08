@@ -1,283 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/abTarjeta"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="200dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/ctlTarjeta"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:expandedTitleMarginStart="30dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="@color/colorPrimary">
+            <ImageView
+                android:id="@+id/ivImagenTarjeta"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/add_btn"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                app:layout_collapseMode="parallax"/>
+            <ImageView
+                android:id="@+id/ivImgUsuario"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/icon_user"
+                android:layout_margin="10dp"
+                android:layout_gravity="bottom|end"
+                app:layout_collapseMode="parallax"/>
+            <LinearLayout
+                android:id="@+id/llDatosContacto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:layout_gravity="bottom"
+                android:background="@color/colorBackgroundLinearLayout"
+                android:padding="5dp">
+                <TextView
+                    android:id="@+id/tvNom"
+                    android:text="Cargo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal_text" />
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:text="Cargo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal_text"/>
+
+            </LinearLayout>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbarTarjetas"
+                app:layout_collapseMode="pin"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nsvTarjetas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            >
-            <ImageView
-                android:id="@+id/ivImagenTarjeta"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/add_btn"
-                android:scaleType="centerCrop"
-                android:adjustViewBounds="true"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
             <LinearLayout
+                android:id="@+id/llTelefonoContacto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-                <LinearLayout
-                    android:id="@+id/llDatosContacto"
-                    android:layout_width="match_parent"
+                android:paddingTop="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:text="Telefono:"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingTop="10dp">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_weight="1">
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:text="Nombre:"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="@dimen/normal_text"
-                                    android:textStyle="bold"
-                                    android:background="@drawable/contorno_text_view"
-                                    android:padding="5dp" />
-                                <TextView
-                                    android:id="@+id/tvNom"
-                                    android:text="Cargo"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="@dimen/normal_text"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginLeft="10dp"/>
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingTop="10dp"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:text="Correo:"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="@dimen/normal_text"
-                                    android:textStyle="bold"
-                                    android:background="@drawable/contorno_text_view"
-                                    android:padding="5dp"/>
-                                <TextView
-                                    android:id="@+id/tvEmail"
-                                    android:text="Cargo"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="@dimen/normal_text"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginLeft="10dp" />
-                            </LinearLayout>
-                        </LinearLayout>
-                        <ImageView
-                            android:id="@+id/ivImgUsuario"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@drawable/icon_user"
-                            android:layout_marginRight="10dp"
-                            android:layout_gravity="center_vertical" />
-                    </LinearLayout>
-
-
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:orientation="vertical">
-                        <TextView
-                            android:text="Telefono:"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/normal_text"
-                            android:textStyle="bold"
-                            android:background="@drawable/contorno_text_view"
-                            android:padding="5dp"/>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal">
-                            <TextView
-                                android:id="@+id/tvTel"
-                                android:text="Cargo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="@dimen/normal_text"
-                                android:layout_gravity="center_vertical"/>
-                            <ImageView
-                                android:id="@+id/ivIcLlamar"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_call_black"
-                                android:padding="10dp"
-                                android:layout_marginLeft="10dp"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                    <View
-                        android:background="@color/colorDivider"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginTop="10dp"></View>
-                </LinearLayout>
-
-
+                    android:textSize="@dimen/normal_text"
+                    android:textStyle="bold"
+                    android:background="@drawable/contorno_text_view"
+                    android:padding="5dp"/>
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:orientation="vertical">
+                    android:layout_gravity="center_horizontal">
                     <TextView
-                        android:text="Cargo:"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/normal_text"
-                        android:textStyle="bold"
-                        android:background="@drawable/contorno_text_view"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:id="@+id/tvCargo"
+                        android:id="@+id/tvTel"
                         android:text="Cargo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/normal_text"
-                        android:layout_marginTop="5dp"
-                        android:layout_gravity="center_horizontal" />
+                        android:layout_gravity="center_vertical"/>
+                    <ImageView
+                        android:id="@+id/ivIcLlamar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_call_black"
+                        android:padding="10dp"
+                        android:layout_marginLeft="10dp"/>
                 </LinearLayout>
-                <LinearLayout
+                <View
+                    android:background="@color/colorDivider"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:text="Página Web:"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/normal_text"
-                        android:textStyle="bold"
-                        android:background="@drawable/contorno_text_view"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:id="@+id/tvPaginaweb"
-                        android:text="pagina"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/normal_text"
-                        android:layout_marginTop="5dp"
-                        android:layout_gravity="center_horizontal" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:text="Descripcón:"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/normal_text"
-                        android:textStyle="bold"
-                        android:background="@drawable/contorno_text_view"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:id="@+id/tvDescripcion"
-                        android:text="decripcion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:textSize="@dimen/normal_text"
-                        android:layout_gravity="center_horizontal" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:text="Dirección:"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/normal_text"
-                        android:textStyle="bold"
-                        android:background="@drawable/contorno_text_view"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:id="@+id/tvDireccion"
-                        android:text="direccion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/normal_text"
-                        android:layout_marginTop="5dp"
-                        android:layout_gravity="center_horizontal" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:text="Localidad:"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/normal_text"
-                        android:textStyle="bold"
-                        android:background="@drawable/contorno_text_view"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:id="@+id/tvLocalidad"
-                        android:text="localdad"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/normal_text"
-                        android:layout_marginTop="5dp"
-                        android:layout_gravity="center_horizontal" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:orientation="vertical"
-                    android:paddingBottom="10dp">
-                    <TextView
-                        android:text="Organización:"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/normal_text"
-                        android:textStyle="bold"
-                        android:background="@drawable/contorno_text_view"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:id="@+id/tvOrganizacion"
-                        android:text="organizacion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/normal_text"
-                        android:layout_marginTop="5dp"
-                        android:layout_gravity="center_horizontal" />
-                </LinearLayout>
-
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"></View>
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:text="Cargo:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal_text"
+                    android:textStyle="bold"
+                    android:background="@drawable/contorno_text_view"
+                    android:padding="5dp"/>
+                <TextView
+                    android:id="@+id/tvCargo"
+                    android:text="Cargo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal_text"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:text="Página Web:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal_text"
+                    android:textStyle="bold"
+                    android:background="@drawable/contorno_text_view"
+                    android:padding="5dp"/>
+                <TextView
+                    android:id="@+id/tvPaginaweb"
+                    android:text="pagina"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal_text"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:text="Descripcón:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal_text"
+                    android:textStyle="bold"
+                    android:background="@drawable/contorno_text_view"
+                    android:padding="5dp"/>
+                <TextView
+                    android:id="@+id/tvDescripcion"
+                    android:text="decripcion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="@dimen/normal_text"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:text="Dirección:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal_text"
+                    android:textStyle="bold"
+                    android:background="@drawable/contorno_text_view"
+                    android:padding="5dp"/>
+                <TextView
+                    android:id="@+id/tvDireccion"
+                    android:text="direccion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal_text"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:text="Localidad:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal_text"
+                    android:textStyle="bold"
+                    android:background="@drawable/contorno_text_view"
+                    android:padding="5dp"/>
+                <TextView
+                    android:id="@+id/tvLocalidad"
+                    android:text="localdad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal_text"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+                <TextView
+                    android:text="Organización:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal_text"
+                    android:textStyle="bold"
+                    android:background="@drawable/contorno_text_view"
+                    android:padding="5dp"/>
+                <TextView
+                    android:id="@+id/tvOrganizacion"
+                    android:text="organizacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal_text"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
             <Button
                 android:id="@+id/btnEditarTarjeta"
                 android:layout_width="match_parent"
@@ -288,7 +269,8 @@
                 android:layout_marginTop="20dp" />
         </LinearLayout>
 
-    </ScrollView>
+
+    </android.support.v4.widget.NestedScrollView>
 
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,7 +45,7 @@ public class CrearTarjetaActivity extends AppCompatActivity implements View.OnCl
     ImageButton imageButton;
     EditText etCargo,etPagina,etDescripcion,etDireccion,etLocalidad,etOrganizacion,etTelefono;
     Switch aSwitch;
-    Button btnCrearTarjeta;
+    Button btnCrearTarjeta,btnCancelarTarjeta;
     private String usuarioID;
     Uri imagenUri = null;
 
@@ -63,6 +64,8 @@ public class CrearTarjetaActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_tarjeta);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarCrearTarjeta);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Crear Tarjeta de Presentación");
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("tarjetas");
@@ -111,6 +114,11 @@ public class CrearTarjetaActivity extends AppCompatActivity implements View.OnCl
             case R.id.btnCrearTarjeta:
 
                 guardarTarjeta();
+
+                break;
+            case R.id.btnCancelarTarjeta:
+
+                finish();
 
                 break;
         }
@@ -217,11 +225,13 @@ public class CrearTarjetaActivity extends AppCompatActivity implements View.OnCl
 
         aSwitch = (Switch) findViewById(R.id.swPublico);
         btnCrearTarjeta = (Button) findViewById(R.id.btnCrearTarjeta);
+        btnCancelarTarjeta = (Button) findViewById(R.id.btnCancelarTarjeta);
 
         progressDialog = new ProgressDialog(this);
 
         imageButton.setOnClickListener(this);
         btnCrearTarjeta.setOnClickListener(this);
+        btnCancelarTarjeta.setOnClickListener(this);
 
 
 

@@ -8,6 +8,7 @@
     <color name="colorSecondaryText">#747474</color>
     <color name="colorDivider">#BCBCBC</color>
     <color name="colorBackgroundEditText">#e0e0e0</color>
+    <color name="colorBackgroundLinearLayout">#5c000000</color>
     <color name="colorBackgroundTextView">#eeeeee</color>
     <color name="colorText">#FEFEFE</color>
     <color name="colorAdvertencia">#e53935</color>
