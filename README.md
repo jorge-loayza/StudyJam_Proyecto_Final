@@ -16,7 +16,7 @@ Requerimientos
 
 Uso
 ---------
-Para probar este ejemplo clona este repositorio dela siguiente link:
+Para probar este ejemplo clona este repositorio desde el siguiente link:
 >
 >     $ https://github.com/kokoDev05/StudyJam_Proyecto_Final.git
 
